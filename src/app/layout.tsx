@@ -26,9 +26,11 @@ export default function RootLayout({
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}>
-        <Toaster position="top-center" />
+        <Toaster duration={2000} position="top-center" />
         <QueryClientProvider client={queryClient}>
-          <SessionProvider refetchInterval={10 * 60}>
+          <SessionProvider
+            refetchOnWindowFocus={false}
+            refetchInterval={10 * 60}>
             {children}
           </SessionProvider>
         </QueryClientProvider>

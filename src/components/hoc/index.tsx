@@ -10,6 +10,8 @@ const withAuth = <P extends object>(
     const { status } = useSession();
     const router = useRouter();
 
+    console.log(status);
+
     useEffect(() => {
       if (process.browser && status === "unauthenticated") {
         router.replace("/?not-logged");

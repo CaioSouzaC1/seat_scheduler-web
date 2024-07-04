@@ -1,17 +1,12 @@
 "use client";
 import withAuth from "@/components/hoc";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 function DashboardPage() {
   const { data: session } = useSession();
 
   if (!session) {
-    return (
-      <div>
-        <p>You are not logged in.</p>
-        <button onClick={() => signIn()}>Sign in</button>
-      </div>
-    );
+    return;
   }
 
   return (
