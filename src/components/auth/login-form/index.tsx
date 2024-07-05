@@ -18,28 +18,23 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
-
-const formSchema = z.object({
-  email: z.string().email({
-    message: "Este campo precisa ser um email.",
-  }),
-  password: z.string().min(2, {
-    message: "A senha precisa ter pelo menos 6 caracteres",
-  }),
-});
+import { loginFormSchema } from "@/schemas/auth";
 
 export default function LoginForm() {
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  async function onSubmit({ email, password }: z.infer<typeof formSchema>) {
+  async function onSubmit({
+    email,
+    password,
+  }: z.infer<typeof loginFormSchema>) {
     const result = await signIn("credentials", {
       email,
       password,

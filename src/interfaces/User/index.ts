@@ -18,3 +18,18 @@ export interface IUser {
   lastLogin: string;
   loginCount: number;
 }
+
+export interface ICreateUser {
+  email: string;
+  name: string;
+  phone: string;
+  password: string;
+  cep: string;
+  country: string;
+  state: string;
+  number: string;
+  city: string;
+  neighborhood: string;
+  street: string;
+  complement?: string;
+}

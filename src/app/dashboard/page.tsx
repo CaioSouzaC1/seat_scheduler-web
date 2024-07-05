@@ -9,6 +9,8 @@ function DashboardPage() {
     return;
   }
 
+  console.log(session);
+
   return (
     <div>
       <p>Dashboard</p>
