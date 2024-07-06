@@ -53,7 +53,7 @@ export default function LoginForm() {
   return (
     <Form {...form}>
       <form
-        className="w-full max-w-lg border p-4 rounded-sm"
+        className="w-full max-w-xl p-4 rounded-sm"
         onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
@@ -62,7 +62,7 @@ export default function LoginForm() {
             <FormItem className="mb-4">
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="jhon@doe.com" {...field} />
+                <Input placeholder="m@example.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -73,28 +73,31 @@ export default function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem className="mb-4">
-              <FormLabel>Senha</FormLabel>
+              <FormLabel className="flex justify-between">
+                <span>Senha</span>
+                <Link className="underline" href={"/forgot-password"}>
+                  Perdi minha senha
+                </Link>
+              </FormLabel>
               <FormControl>
-                <Input type="password" placeholder="*********" {...field} />
+                <Input type="password" placeholder="*****" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button className="px-0 mb-4" variant={"link"}>
-          <Link href={"/forgot-password"}>Perdi minha senha</Link>
-        </Button>
         <div className="flex flex-col gap-4">
           <Button className="w-full" type="submit">
             Entrar
           </Button>
 
-          <Link href={"/account/create"}>
-            <Button className="w-full" variant={"secondary"}>
-              Criar conta{" "}
-            </Button>
-          </Link>
+          <div className="mt-4 text-center text-sm">
+            Não tem uma conta?{" "}
+            <Link href={"/account/create"} className="underline">
+              Criar conta
+            </Link>
+          </div>
         </div>
       </form>
     </Form>

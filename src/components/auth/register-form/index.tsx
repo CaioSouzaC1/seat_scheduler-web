@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -24,6 +24,8 @@ import { storeNewUser } from "@/app/api/auth/register/store-new-user";
 import { toast } from "sonner";
 import { signIn } from "next-auth/react";
 import CreatedAccountCard from "./created-account-card";
+import ReactInputMask from "react-input-mask";
+import { InputMask } from "@/components/ui/inputmask";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -83,6 +85,7 @@ export default function RegisterForm() {
 
   async function onSubmit(values: z.infer<typeof registerFormSchema>) {
     setCreating(true);
+    console.log(values);
     storeNewUserFn(values);
   }
 
@@ -125,9 +128,30 @@ export default function RegisterForm() {
                   name="phone"
                   render={({ field }) => (
                     <FormItem className="mb-4">
-                      <FormLabel>Telefone</FormLabel>
+                      <FormLabel>Número</FormLabel>
                       <FormControl>
-                        <Input placeholder="12 99887-6655" {...field} />
+                        <Controller
+                          name="phone"
+                          control={form.control}
+                          render={({ field }) => (
+                            <InputMask
+                              mask="(99) 99999-9999"
+                              alwaysShowMask={false}
+                              maskPlaceholder=""
+                              type="text"
+                              placeholder="(11) 99887-6655"
+                              value={field.value}
+                              onChange={(e) => {
+                                const cleanedValue = e.target.value.replace(
+                                  /[()\s-]/g,
+                                  ""
+                                );
+                                field.onChange(cleanedValue);
+                                form.setValue("phone", cleanedValue);
+                              }}
+                            />
+                          )}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -163,13 +187,28 @@ export default function RegisterForm() {
                       <FormItem className="mb-4">
                         <FormLabel>Cep</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder="12701050"
-                            {...field}
-                            onChange={(e) => {
-                              field.onChange(e);
-                              setCep(e.target.value);
-                            }}
+                          <Controller
+                            name="cep"
+                            control={form.control}
+                            render={({ field }) => (
+                              <InputMask
+                                mask="99999-999"
+                                alwaysShowMask={false}
+                                maskPlaceholder=""
+                                type="text"
+                                placeholder="12701-050"
+                                value={field.value}
+                                onChange={(e) => {
+                                  field.onChange(e.target.value);
+                                  const cepOnlyNumbers = e.target.value.replace(
+                                    "-",
+                                    ""
+                                  );
+                                  setCep(cepOnlyNumbers);
+                                  form.setValue("cep", cepOnlyNumbers);
+                                }}
+                              />
+                            )}
                           />
                         </FormControl>
                         <FormMessage />
@@ -183,7 +222,23 @@ export default function RegisterForm() {
                       <FormItem className="mb-4">
                         <FormLabel>Número</FormLabel>
                         <FormControl>
-                          <Input type="tel" placeholder="99" {...field} />
+                          <Controller
+                            name="number"
+                            control={form.control}
+                            render={({ field }) => (
+                              <InputMask
+                                mask="99999"
+                                alwaysShowMask={false}
+                                maskPlaceholder=""
+                                type="text"
+                                placeholder="99"
+                                value={field.value}
+                                onChange={(e) => {
+                                  field.onChange(e.target.value);
+                                }}
+                              />
+                            )}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -209,7 +264,7 @@ export default function RegisterForm() {
                       <FormItem className="mb-4">
                         <FormLabel>Estado</FormLabel>
                         <FormControl>
-                          <Input placeholder="SP" {...field} />
+                          <Input readOnly placeholder="SP" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
