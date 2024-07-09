@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getSession } from "next-auth/react";
 
 const ApiClient = () => {
   const instance = axios.create({
@@ -13,3 +14,10 @@ const ApiClient = () => {
 };
 
 export default ApiClient();
+
+export const AuthInterceptor = async () => {
+  const session = await getSession();
+  return {
+    Authorization: `Bearer ${session?.token}`,
+  };
+};
