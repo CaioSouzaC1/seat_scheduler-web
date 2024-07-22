@@ -10,7 +10,9 @@ export default function Layout({ children }: ILayout) {
   return (
     <>
       <Header />
-      <main className="container px-4">{children}</main>
+      <main className="container px-4 min-h-[calc(100vh-9rem)]">
+        {children}
+      </main>
       <Footer />
     </>
   );

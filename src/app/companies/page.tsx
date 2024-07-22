@@ -13,13 +13,12 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 import { useGetCompanies } from "@/hooks/queries/companies/use-get-companies";
 import { PlusCircle } from "lucide-react";
@@ -27,30 +26,33 @@ import { PlusCircle } from "lucide-react";
 function CompaniesPage() {
   const { companies } = useGetCompanies();
 
+  console.log(companies);
+
   return (
     <Layout>
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbPage>Empresas</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <div className="w-full flex justify-between">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbPage>Empresas</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
-      <Sheet>
-        <SheetTrigger>
-          <Button>
-            Cadastrar <PlusCircle className="w-4 ml-2" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Cadastrar nova empresa</SheetTitle>
-            <NewCompanyForm />
-          </SheetHeader>
-        </SheetContent>
-      </Sheet>
-
+        <Dialog>
+          <DialogTrigger>
+            <Button>
+              <PlusCircle className="mr-2 w-4" /> <span>Cadastrar</span>
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="mb-4">Cadastrar nova empresa</DialogTitle>
+              <NewCompanyForm />
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-4">
         {companies ? (
           <>
