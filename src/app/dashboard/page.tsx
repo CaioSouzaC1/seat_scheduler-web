@@ -44,10 +44,6 @@ import {
 function DashboardPage() {
   const { data: session } = useSession();
 
-  if (!session) {
-    return;
-  }
-
   return (
     <Layout>
       <Breadcrumb>

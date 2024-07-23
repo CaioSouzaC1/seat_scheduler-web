@@ -27,8 +27,6 @@ import { PlusCircle } from "lucide-react";
 function CompaniesPage() {
   const { companies } = useGetCompanies();
 
-  console.log(companies);
-
   return (
     <Layout>
       <div className="w-full flex justify-between">
