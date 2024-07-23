@@ -1,9 +1,11 @@
 import { IAddress } from "../Adresses";
-import { IApiRoot } from "../Api";
+import { IApiRoot, IPaginate, IPaginateRoot } from "../Api";
 import { IAttachement } from "../Attachement";
 
-export interface IGetCompanies extends IApiRoot {
-  data: ICompany[];
+export interface IGetCompanies extends IPaginateRoot {
+  data: IPaginate & {
+    data: ICompany[];
+  };
 }
 
 export interface ICompany {

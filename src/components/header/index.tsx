@@ -11,31 +11,44 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "../ui/button";
 import { Armchair, CircleUser, Menu } from "lucide-react";
 import { ThemeChanger } from "../theme-changer";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Header() {
-  const navItems = [
-    {
-      text: "Dashboard",
-      url: "/dashboard",
-    },
-    {
-      text: "Empresas",
-      url: "/companies",
-    },
-    {
-      text: "Empresas",
-      url: "/companies",
-    },
-    {
-      text: "Empresas",
-      url: "/companies",
-    },
-    {
-      text: "Empresas",
-      url: "/companies",
-    },
-  ];
+  const { data: session } = useSession();
+
+  const navItems = session
+    ? [
+        {
+          text: "Dashboard",
+          url: "/dashboard",
+        },
+        {
+          text: "Empresas",
+          url: "/companies",
+        },
+        {
+          text: "Empresas",
+          url: "/companies",
+        },
+        {
+          text: "Empresas",
+          url: "/companies",
+        },
+        {
+          text: "Empresas",
+          url: "/companies",
+        },
+      ]
+    : [
+        {
+          text: "Entrar",
+          url: "/",
+        },
+        {
+          text: "Cadastrar",
+          url: "/account/create",
+        },
+      ];
 
   return (
     <header className="sticky top-0 flex h-16 mb-4 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -48,8 +61,10 @@ export default function Header() {
           <Link
             key={i}
             href={item.url}
-            className="text-foreground transition-colors hover:text-foreground">
-            {item.text}
+            className="text-foreground transition-colors hover:text-foreground block">
+            <Button className="px-0" variant={"link"}>
+              {item.text}
+            </Button>
           </Link>
         ))}
       </nav>
@@ -91,20 +106,31 @@ export default function Header() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href={"/settings"}>Configurações</Link>
-            </DropdownMenuItem>
+            {session && (
+              <>
+                <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Link href={"/settings"}>Configurações</Link>
+                </DropdownMenuItem>
+              </>
+            )}
+
             <DropdownMenuItem>
               <Link href={"/support"}>Suporte</Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => signOut()}>
-              <button>Sair</button>
-            </DropdownMenuItem>
+
+            {session && (
+              <>
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => signOut()}>
+                  <button>Sair</button>
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

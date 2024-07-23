@@ -78,6 +78,11 @@ export default function RegisterForm() {
   return (
     <>
       <div className="w-full max-w-lg border p-4 rounded-sm">
+        <p className="text-foreground text-sm">
+          Preencha o formulário abaixo para criar sua conta e comece a gerenciar
+          reservas de maneira eficiente.
+        </p>
+
         <Progress value={(100 / 2) * (step - 1)} className="my-8" />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

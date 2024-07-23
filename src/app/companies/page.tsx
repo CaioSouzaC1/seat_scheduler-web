@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { useGetCompanies } from "@/hooks/queries/companies/use-get-companies";
+import { ICompany } from "@/interfaces/Companies";
 import { PlusCircle } from "lucide-react";
 
 function CompaniesPage() {
@@ -56,8 +57,10 @@ function CompaniesPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-4">
         {companies ? (
           <>
-            {companies.data.length != 0 ? (
-              companies.data.map((e) => <CompanyCard {...e} key={e.id} />)
+            {companies.data.data.length != 0 ? (
+              companies.data.data.map((e: ICompany) => (
+                <CompanyCard {...e} key={e.id} />
+              ))
             ) : (
               <NotFoundText entity="empresa" />
             )}
