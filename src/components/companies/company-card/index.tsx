@@ -35,6 +35,8 @@ import { useMutation } from "@tanstack/react-query";
 import { Edit, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
+import EditCompanyForm from "../update-company-form";
+import UpdateCompanyForm from "../update-company-form";
 
 export default function CompanyCard(company: ICompany) {
   const { mutateAsync: deleteCompanyFn } = useMutation({
@@ -121,11 +123,8 @@ export default function CompanyCard(company: ICompany) {
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Are you absolutely sure?</DialogTitle>
-                  <DialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
-                  </DialogDescription>
+                  <DialogTitle>Editar {company.name}</DialogTitle>
+                  <UpdateCompanyForm {...company} />
                 </DialogHeader>
               </DialogContent>
             </Dialog>

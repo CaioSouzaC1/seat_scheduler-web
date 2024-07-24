@@ -9,7 +9,7 @@ export interface InputProps
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, showPasswordToggle = true, ...props }, ref) => {
-    const [showPassword, setShowPassword] = React.useState(true);
+    const [showPassword, setShowPassword] = React.useState(false);
 
     const togglePasswordVisibility = () => {
       setShowPassword((prev) => !prev);

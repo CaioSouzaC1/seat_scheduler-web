@@ -2,12 +2,6 @@ import { IAddress } from "../Adresses";
 import { IApiRoot, IPaginate, IPaginateRoot } from "../Api";
 import { IAttachement } from "../Attachement";
 
-export interface IGetCompanies extends IPaginateRoot {
-  data: IPaginate & {
-    data: ICompany[];
-  };
-}
-
 export interface ICompany {
   id: string;
   name: string;
@@ -18,6 +12,16 @@ export interface ICompany {
   updatedAt: string;
   address: IAddress;
   attachement: ICompanyAttachement[];
+}
+
+export interface ICompanyAttachement extends IAttachement {
+  companyId: string;
+}
+
+export interface IGetCompanies extends IPaginateRoot {
+  data: IPaginate & {
+    data: ICompany[];
+  };
 }
 
 export interface ICreateCompany {
@@ -34,6 +38,19 @@ export interface ICreateCompany {
   image?: any;
 }
 
-export interface ICompanyAttachement extends IAttachement {
-  companyId: string;
+export interface ICreatedCompany extends IApiRoot {
+  data: {
+    name: string;
+    phone: string;
+    companyId: string;
+    description: string;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    addressId: string;
+  };
+}
+
+export interface IUpdateCompany extends ICreateCompany {
+  id: string;
 }

@@ -22,3 +22,8 @@ export interface IPaginateRoot extends IApiRoot {
   data: IPaginate;
 }
 
+export interface ITimestamps {
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string;
+}
