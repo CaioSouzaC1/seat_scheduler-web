@@ -1,4 +1,4 @@
-import { storeNewCompany } from "@/app/api/auth/companies/store-new-company";
+import { storeNewCompany } from "@/app/api/companies/store-new-company";
 import { queryClient } from "@/app/lib/react-query";
 import AddressForm from "@/components/adresses/address-form";
 import LogoForm from "@/components/forms/logo";

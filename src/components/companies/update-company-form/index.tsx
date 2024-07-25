@@ -1,4 +1,4 @@
-import { storeNewCompany } from "@/app/api/auth/companies/store-new-company";
+import { storeNewCompany } from "@/app/api/companies/store-new-company";
 import { queryClient } from "@/app/lib/react-query";
 import AddressForm from "@/components/adresses/address-form";
 import LogoForm from "@/components/forms/logo";
@@ -32,7 +32,7 @@ import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
-import { updateCompany } from "@/app/api/auth/companies/update-company";
+import { updateCompany } from "@/app/api/companies/update-company";
 
 export default function UpdateCompanyForm(company: ICompany) {
   const [creating, setCreating] = useState<boolean>(false);

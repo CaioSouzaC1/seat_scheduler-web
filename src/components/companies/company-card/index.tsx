@@ -1,4 +1,4 @@
-import { deleteCompany } from "@/app/api/auth/companies/delete-company";
+import { deleteCompany } from "@/app/api/companies/delete-company";
 import { queryClient } from "@/app/lib/react-query";
 import AddressDialog from "@/components/adresses/address-dialog";
 import { Button } from "@/components/ui/button";

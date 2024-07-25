@@ -1,4 +1,4 @@
-import { getCompanies } from "@/app/api/auth/companies/get-companies";
+import { getCompanies } from "@/app/api/companies/get-companies";
 import { IGetCompanies } from "@/interfaces/Companies";
 import { useQuery } from "@tanstack/react-query";
 
