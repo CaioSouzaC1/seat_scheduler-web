@@ -1,3 +1,4 @@
+import { IAddress } from "../Adresses";
 import { IApiRoot } from "../Api";
 
 export interface IUserLogin extends IApiRoot {
@@ -17,6 +18,7 @@ export interface IUser {
   addressId: string;
   lastLogin: string;
   loginCount: number;
+  address: IAddress;
 }
 
 export interface ICreateUser {
