@@ -6,7 +6,6 @@ export async function updateStore(data: IUpdateStore): Promise<IApiRoot> {
   try {
     const formData = new FormData();
 
-    console.log(data);
 
     Object.keys(data).forEach((key) => {
       if (key === "image" && data[key] != null) {
@@ -16,7 +15,6 @@ export async function updateStore(data: IUpdateStore): Promise<IApiRoot> {
       }
     });
 
-    console.log(formData);
 
     const response = await api.put<IApiRoot>(`/stores/${data.id}`, formData, {
       headers: {

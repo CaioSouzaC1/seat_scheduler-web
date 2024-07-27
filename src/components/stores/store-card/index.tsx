@@ -34,6 +34,8 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { deleteStore } from "@/app/api/stores/delete-store";
 import UpdateStoreForm from "../update-store-form";
+import { useStore } from "@/context/StoreContext/Index";
+import { formatDate } from "@/lib/utils";
 
 export default function StoreCard(store: IStore) {
   const { mutateAsync: deleteStoreFn } = useMutation({
@@ -48,6 +50,8 @@ export default function StoreCard(store: IStore) {
     },
   });
 
+  const { store: currentStore, setStore } = useStore()
+
   async function handleDelete(id: string) {
     deleteStoreFn(id);
   }
@@ -58,8 +62,8 @@ export default function StoreCard(store: IStore) {
       <CardHeader>
         <CardTitle className="uppercase line-clamp-1">{store.name}</CardTitle>
         <CardDescription>
-          <p>Cadastrada em: { }</p>
-          <p>Atualizada em: { }</p>
+          <p>Cadastrada em: {formatDate(store.createdAt)}</p>
+          <p>Atualizada em: {formatDate(store.createdAt)}</p>
         </CardDescription>
       </CardHeader>
 
@@ -144,7 +148,13 @@ export default function StoreCard(store: IStore) {
           </div>
         </div >
 
-        <Button>Selecionar como atual loja</Button>
+        <Button
+          disabled={currentStore == null || currentStore!.id === store.id}
+          onClick={() => setStore(store)}
+        >
+          Selecionar como atual loja
+        </Button>
+
       </CardContent>
     </Card >
   );

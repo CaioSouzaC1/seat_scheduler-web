@@ -87,7 +87,6 @@ export default function UpdateStoreForm(store: IStore) {
   });
 
   async function onSubmit(values: z.infer<typeof newStoreSchema>) {
-    console.log(values)
     setCreating(true);
     updateStoreFn({
       id: store.id,
