@@ -6,14 +6,13 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbPage, BreadcrumbS
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useGetStores } from "@/hooks/queries/stores/use-get-stores";
-import { ICompany } from "@/interfaces/Companies";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
-import CompanyCard from "@/components/companies/company-card";
 import CompanyCardSkeleton from "@/components/companies/company-card-sekeleton";
 import NotFoundText from "@/components/not-found/not-found-text";
-import NewStoreForm from "@/components/companies/new-store-form";
 import { IStore } from "@/interfaces/Store";
+import StoreCard from "@/components/stores/store-card";
+import NewStoreForm from "@/components/stores/new-store-form";
 
 function StorePage() {
   const { stores } = useGetStores()
@@ -56,16 +55,13 @@ function StorePage() {
           </DialogContent>
         </Dialog>
 
-
       </div>
-      <h1>Page</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-4">
         {stores ? (
           <>
             {stores.data.data.length != 0 ? (
               stores.data.data.map((e: IStore) => (
-                <h1 key={e.id}>{e.name}</h1>
-                // <CompanyCard {...e} key={e.id} />
+                <StoreCard {...e} key={e.id} />
               ))
             ) : (
               <NotFoundText entity="empresa" />

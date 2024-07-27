@@ -1,10 +1,3 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { queryClient } from "@/app/lib/react-query";
 import AddressForm from "@/components/adresses/address-form";
 import LogoForm from "@/components/forms/logo";
@@ -18,53 +11,67 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 import { Input } from "@/components/ui/input";
 import { InputMask } from "@/components/ui/inputmask";
+import { IStore } from "@/interfaces/Store";
 import { newStoreSchema } from "@/schemas/stores";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { CirclePlus } from "lucide-react";
+import Image from "next/image";
 
 import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
-import { useGetCompanies } from "@/hooks/queries/companies/use-get-companies";
-import { ICompany } from "@/interfaces/Companies";
 import { Skeleton } from "@/components/ui/skeleton";
-import { storeNewStore } from "@/app/api/stores/store-new-store";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useGetCompanies } from "@/hooks/queries/companies/use-get-companies";
+import { updateStore } from "@/app/api/stores/update-store";
+import { ICompany } from "@/interfaces/Companies";
 
-export default function NewStoreForm() {
+export default function UpdateStoreForm(store: IStore) {
   const [creating, setCreating] = useState<boolean>(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const cardContentRef = useRef(null);
-  const { companies } = useGetCompanies()
 
   const form = useForm<z.infer<typeof newStoreSchema>>({
     resolver: zodResolver(newStoreSchema),
     defaultValues: {
-      name: "",
-      phone: "",
-      description: "",
-      companyId: "",
-      cep: "",
-      number: "",
-      country: "",
-      state: "",
-      city: "",
-      neighborhood: "",
-      street: "",
-      complement: "",
+      name: store.name,
+      phone: store.phone,
+      description: store.description,
+      cep: store.address.cep,
+      number: store.address.number.toString(),
+      country: store.address.country,
+      state: store.address.state,
+      city: store.address.city,
+      neighborhood: store.address.neighborhood,
+      street: store.address.street,
+      complement: store.address.complement ?? "",
+      companyId: store.companyId,
       image: undefined,
     },
   });
 
-
-  const { mutateAsync: storeNewStoreFn } = useMutation({
-    mutationFn: storeNewStore,
-    mutationKey: ["store-new-store"],
+  const { mutateAsync: updateStoreFn } = useMutation({
+    mutationFn: updateStore,
+    mutationKey: ["update-store"],
     async onSuccess() {
-      toast.success("store cadastrada com sucesso.");
+      toast.success("Loja editada com sucesso.");
       await queryClient.invalidateQueries({
         queryKey: ["get-stores"],
         refetchType: "all",
@@ -80,12 +87,16 @@ export default function NewStoreForm() {
   });
 
   async function onSubmit(values: z.infer<typeof newStoreSchema>) {
+    console.log(values)
     setCreating(true);
-    storeNewStoreFn({
+    updateStoreFn({
+      id: store.id,
       ...values,
       image: imageFile,
     });
   }
+
+  const { companies } = useGetCompanies()
 
   return (
     <Card>
@@ -96,7 +107,6 @@ export default function NewStoreForm() {
           <form
             className="w-full max-w-xl p-4 rounded-sm"
             onSubmit={form.handleSubmit(onSubmit)}>
-
             <FormField
               control={form.control}
               name="name"
@@ -148,25 +158,11 @@ export default function NewStoreForm() {
 
             <FormField
               control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem className="mb-4">
-                  <FormLabel>Descrição</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Descrição da loja" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
               name="companyId"
               render={({ field }) => (
                 <FormItem className="mb-4">
                   <FormLabel>Companias</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} defaultValue={store.companyId}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Selecione uma compania" />
                     </SelectTrigger>
@@ -174,7 +170,7 @@ export default function NewStoreForm() {
                       {companies && companies.data.data.length != 0 ? (
                         <>
                           {companies.data.data.map((e: ICompany) => (
-                            <SelectItem value={e.id} key={e.id}>{e.name}</SelectItem>
+                            <SelectItem value={e.id} key={e.id} >{e.name}</SelectItem>
 
                           ))}
                         </>
@@ -187,12 +183,30 @@ export default function NewStoreForm() {
               )}
             />
 
-            <LogoForm
-              form={form}
-              imageFile={imageFile}
-              setImageFile={setImageFile}
-            />
+            <div>
+              <FormLabel>Adicionar nova logo</FormLabel>
+              <LogoForm
+                form={form}
+                imageFile={imageFile}
+                setImageFile={setImageFile}
+              />
+            </div>
 
+            <Popover>
+              <PopoverTrigger className="w-full">
+                <Button className="w-full my-4" size={"sm"} type="button">
+                  Logo atual
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Image
+                  src={store.attachement[0].imagePath}
+                  width={300}
+                  height={200}
+                  alt={store.name}
+                />
+              </PopoverContent>
+            </Popover>
 
             <div className="grid grid-cols-2 gap-x-4">
               <AddressForm form={form} />
@@ -209,6 +223,6 @@ export default function NewStoreForm() {
           </form>
         </Form>
       </CardContent>
-    </Card >
+    </Card>
   );
 }

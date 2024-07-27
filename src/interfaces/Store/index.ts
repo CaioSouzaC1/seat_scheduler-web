@@ -1,3 +1,4 @@
+import { IAddress } from "../Adresses"
 import { IApiRoot, IPaginate, IPaginateRoot } from "../Api"
 import { IAttachement } from "../Attachement"
 
@@ -19,10 +20,9 @@ export interface IStore {
   phone: string
   description: string
   companyId: string
-  image?: any
   createdAt: string;
   updatedAt: string;
-  addressId: string;
+  address: IAddress;
   attachement: IStoreAttachement[];
 }
 
@@ -45,4 +45,8 @@ export interface IGetStores extends IPaginateRoot {
   data: IPaginate & {
     data: IStore[];
   }
+}
+
+export interface IUpdateStore extends ICreateStore {
+  id: string;
 }

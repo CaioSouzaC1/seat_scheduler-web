@@ -5,6 +5,7 @@ import { EvervaultCard, Icon } from "@/components/ui/evervault-card";
 import Link from "next/link";
 
 export default function NotFoundPage() {
+
   return (
     <Layout>
       <div className="w-full p-8 flex justify-center items-center">

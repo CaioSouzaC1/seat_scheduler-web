@@ -1,4 +1,5 @@
 "use client";
+
 import Layout from "@/_layouts";
 import CompanyCard from "@/components/companies/company-card";
 import CompanyCardSkeleton from "@/components/companies/company-card-sekeleton";
