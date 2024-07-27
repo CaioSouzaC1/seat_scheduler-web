@@ -12,6 +12,7 @@ import { Button } from "../ui/button";
 import { Armchair, CircleUser, Menu } from "lucide-react";
 import { ThemeChanger } from "../theme-changer";
 import { signOut, useSession } from "next-auth/react";
+import ActualStoreChanger from "../actual-store-changer";
 
 export default function Header() {
   const { data: session } = useSession();
@@ -27,8 +28,8 @@ export default function Header() {
           url: "/companies",
         },
         {
-          text: "Empresas",
-          url: "/companies",
+          text: "Lojas",
+          url: "/companies/stores",
         },
         {
           text: "Empresas",
@@ -94,7 +95,8 @@ export default function Header() {
       </Sheet>
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <div className="ml-auto flex-1 sm:flex-initial">
-          <div className="relative">
+          <div className="relative flex justify-between gap-4 items-center">
+            <ActualStoreChanger />
             <ThemeChanger />
           </div>
         </div>

@@ -9,6 +9,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
+import { StoreProvider } from "@/context/StoreContext/Index";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,7 +33,9 @@ export default function RootLayout({
           <SessionProvider
             refetchOnWindowFocus={false}
             refetchInterval={10 * 60}>
-            <ThemeProvider attribute="class">{children}</ThemeProvider>
+            <ThemeProvider attribute="class">
+              <StoreProvider>{children}</StoreProvider>
+            </ThemeProvider>
           </SessionProvider>
         </QueryClientProvider>
       </body>

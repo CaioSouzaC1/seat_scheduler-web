@@ -8,8 +8,10 @@ import NotFoundText from "@/components/not-found/not-found-text";
 import {
   Breadcrumb,
   BreadcrumbItem,
+  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,6 +25,7 @@ import {
 import { useGetCompanies } from "@/hooks/queries/companies/use-get-companies";
 import { ICompany } from "@/interfaces/Companies";
 import { PlusCircle } from "lucide-react";
+import Link from "next/link";
 
 function CompaniesPage() {
   const { companies } = useGetCompanies();
@@ -33,11 +36,16 @@ function CompaniesPage() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/dashboard">Dashboard</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
               <BreadcrumbPage>Empresas</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-
         <Dialog>
           <DialogTrigger>
             <Button>
