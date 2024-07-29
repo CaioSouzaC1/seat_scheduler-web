@@ -32,12 +32,8 @@ export default function Header() {
           url: "/companies/stores",
         },
         {
-          text: "Empresas",
-          url: "/companies",
-        },
-        {
-          text: "Empresas",
-          url: "/companies",
+          text: "Mesas",
+          url: "/companies/stores/tables",
         },
       ]
     : [
@@ -95,7 +91,7 @@ export default function Header() {
       </Sheet>
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <div className="ml-auto flex-1 sm:flex-initial">
-          <div className="relative flex justify-between gap-4 items-center">
+          <div className="relative flex justify-end gap-4 items-center">
             <ActualStoreChanger />
             <ThemeChanger />
           </div>

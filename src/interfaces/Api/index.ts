@@ -27,3 +27,9 @@ export interface ITimestamps {
   updatedAt: string;
   deletedAt?: string;
 }
+
+export interface IQueryPaginateRoot {
+  page?: number;
+  limit?: number;
+  search?: string;
+}

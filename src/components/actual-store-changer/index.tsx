@@ -27,10 +27,10 @@ export default function ActualStoreChanger() {
       <PopoverTrigger>
         <Button
           disabled={stores && stores.data.meta.total === 0}
-          className="min-w-36"
+          className="min-w-24 sm:min-w-36"
           size="sm"
           variant={"outline"}>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center uppercase">
             {!stores ? (
               <Skeleton className="w-16 h-4" />
             ) : stores?.data.meta.total === 0 ? (
@@ -44,7 +44,7 @@ export default function ActualStoreChanger() {
             ) : (
               <Skeleton className="w-16 h-4" />
             )}
-            <StoreIcon size={20} />
+            <StoreIcon className="hidden sm:block" size={20} />
           </div>
         </Button>
       </PopoverTrigger>

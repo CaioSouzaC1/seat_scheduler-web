@@ -12,7 +12,7 @@ const LightTheme = () => {
   return (
     <div className="flex gap-2">
       <span className="min-w-14">Claro</span>
-      <Sun size={20} />
+      <Sun className="hidden sm:block" size={20} />
     </div>
   );
 };
@@ -21,7 +21,7 @@ const DarkTheme = () => {
   return (
     <div className="flex gap-2">
       <span className="min-w-14">Escuro</span>
-      <Moon size={20} />
+      <Moon className="hidden sm:block" size={20} />
     </div>
   );
 };
@@ -32,7 +32,7 @@ export const ThemeChanger = () => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button className="min-w-36" size="sm" variant={"outline"}>
+        <Button className="min-w-24 sm:min-w-36" size="sm" variant={"outline"}>
           {theme === "light" ? <LightTheme /> : <DarkTheme />}
         </Button>
       </PopoverTrigger>

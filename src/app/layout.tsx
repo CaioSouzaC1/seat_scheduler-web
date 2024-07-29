@@ -10,6 +10,7 @@ import { Toaster } from "sonner";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 import { StoreProvider } from "@/context/StoreContext/Index";
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,12 +23,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning lang="pt-BR">
+    <html suppressHydrationWarning={true} lang="pt-BR">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}>
+        <ProgressBar
+          height="4px"
+          color="#0ea5e9"
+          options={{ showSpinner: false }}
+          shallowRouting
+        />
         <Toaster duration={2000} position="top-center" />
         <QueryClientProvider client={queryClient}>
           <SessionProvider
