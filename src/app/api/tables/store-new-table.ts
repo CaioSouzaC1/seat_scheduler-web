@@ -1,10 +1,10 @@
 import api, { AuthInterceptor } from "@/services/api";
 import { IApiRoot } from "@/interfaces/Api";
-import { IUpdateTable } from "@/interfaces/Tables";
+import { ICreateTable } from "@/interfaces/Tables";
 
-export async function updateTable(data: IUpdateTable): Promise<IApiRoot> {
+export async function storeNewTable(data: ICreateTable): Promise<IApiRoot> {
   try {
-    const response = await api.put<IApiRoot>(`/tables/${data.id}`, data, {
+    const response = await api.post<IApiRoot>(`/tables`, data, {
       headers: {
         ...(await AuthInterceptor()),
       },
@@ -13,6 +13,6 @@ export async function updateTable(data: IUpdateTable): Promise<IApiRoot> {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error("Erro ao editar mesa");
+    throw new Error("Erro ao criar mesa");
   }
 }

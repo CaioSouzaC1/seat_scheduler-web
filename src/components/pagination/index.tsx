@@ -25,14 +25,14 @@ export function Pagination({
   const pages = Math.ceil(totalCount / perPage) || 1;
 
   return (
-    <div className="flex w-full items-center justify-between">
+    <div className="flex w-full items-center justify-between mt-2">
       <span className="text-sm text-muted-foreground">
-        Total of {totalCount} item(s)
+        Total de {totalCount} item(s)
       </span>
 
       <div className="flex items-center gap-6 lg:gap-8">
         <div className="text-sm font-medium">
-          Page {pageIndex} of {pages}
+          Page {pageIndex} de {pages}
         </div>
 
         <div className="flex items-center gap-2">
@@ -42,7 +42,7 @@ export function Pagination({
             onClick={() => handlePaginate(1, searchParams, router)}
             disabled={pageIndex === 1}>
             <ChevronsLeft className="h-4 w-4" />
-            <span className="sr-only">First page </span>
+            <span className="sr-only">Primeira página </span>
           </Button>
 
           <Button
@@ -51,7 +51,7 @@ export function Pagination({
             onClick={() => handlePaginate(pageIndex - 1, searchParams, router)}
             disabled={pageIndex === 1}>
             <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Previus page</span>
+            <span className="sr-only">Página anterior</span>
           </Button>
 
           <Button
@@ -60,7 +60,7 @@ export function Pagination({
             onClick={() => handlePaginate(pageIndex + 1, searchParams, router)}
             disabled={pageIndex === pages}>
             <ChevronRight className="h-4 w-4" />
-            <span className="sr-only">Next page</span>
+            <span className="sr-only">Próxima página</span>
           </Button>
 
           <Button
@@ -69,7 +69,7 @@ export function Pagination({
             onClick={() => handlePaginate(pages, searchParams, router)}
             disabled={pageIndex === pages}>
             <ChevronsRight className="h-4 w-4" />
-            <span className="sr-only">Last page</span>
+            <span className="sr-only">Última página</span>
           </Button>
         </div>
       </div>

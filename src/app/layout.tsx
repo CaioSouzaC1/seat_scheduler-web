@@ -35,11 +35,9 @@ export default function RootLayout({
           options={{ showSpinner: false }}
           shallowRouting
         />
-        <Toaster duration={2000} position="top-center" />
+        <Toaster duration={2400} position="top-center" />
         <QueryClientProvider client={queryClient}>
-          <SessionProvider
-            refetchOnWindowFocus={false}
-            refetchInterval={10 * 60}>
+          <SessionProvider refetchInterval={10 * 60}>
             <ThemeProvider attribute="class">
               <StoreProvider>{children}</StoreProvider>
             </ThemeProvider>

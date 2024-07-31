@@ -28,14 +28,16 @@ import { useSearchParams } from "next/navigation";
 import TablesTableRow from "@/components/tables/table-row";
 import TablesTableRowSkeleton from "@/components/tables/table-row-skeleton";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import NewTableDialog from "@/components/tables/new-table-dialog";
 
 function TablesPage() {
   const searchParams = useSearchParams();
 
   const page = searchParams.get("page") ?? "1";
   const { store } = useStore();
+
   const { tables } = useGetTables({ storeId: store?.id!, page: Number(page) });
 
   return (
@@ -69,13 +71,12 @@ function TablesPage() {
       <Card className="my-4">
         <CardHeader>
           <CardTitle className="w-full flex items-center justify-between">
-            <span>
-              Mesas de {!store ? <Skeleton className="w-20 h-4" /> : store.name}
+            <span className="flex gap-2">
+              <span> Mesas de </span>{" "}
+              {!store ? <Skeleton className="w-20 h-4" /> : store.name}
             </span>
             <div className="flex gap-4">
-              <Button variant={"secondary"} className="flex gap-2">
-                <span>Cadastrar</span> <PlusCircle size={20} />
-              </Button>
+              <NewTableDialog />
               <Button variant={"destructive"} className="flex gap-2">
                 <span>Deletar em massa</span> <Trash2 size={20} />
               </Button>
@@ -97,19 +98,15 @@ function TablesPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {tables ? (
-                tables.data.meta.total > 0 ? (
+              <TablesTableRowSkeleton />
+              {tables
+                ? tables.data.meta.total > 0 &&
                   tables.data.data.map((table: ITable) => (
                     <TablesTableRow key={table.id} {...table} />
                   ))
-                ) : (
-                  <div>Nenhuma mesa cadastrada</div>
-                )
-              ) : (
-                Array.from({ length: 20 }).map((_, e) => (
-                  <TablesTableRowSkeleton key={e} />
-                ))
-              )}
+                : Array.from({ length: 20 }).map((_, e) => (
+                    <TablesTableRowSkeleton key={e} />
+                  ))}
             </TableBody>
           </Table>
 
