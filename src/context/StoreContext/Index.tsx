@@ -1,5 +1,11 @@
 import { IStore } from "@/interfaces/Store";
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 interface StoreContextType {
   store: IStore | null;
@@ -21,7 +27,19 @@ interface StoreProviderProps {
 }
 
 export const StoreProvider = ({ children }: StoreProviderProps) => {
-  const [store, setStore] = useState<IStore | null>(null);
+  const [store, setStoreState] = useState<IStore | null>(null);
+
+  useEffect(() => {
+    const storedStore = localStorage.getItem("SeatSchedulerActualstore");
+    if (storedStore) {
+      setStoreState(JSON.parse(storedStore));
+    }
+  }, []);
+
+  const setStore = (store: IStore) => {
+    setStoreState(store);
+    localStorage.setItem("SeatSchedulerActualstore", JSON.stringify(store));
+  };
 
   return (
     <StoreContext.Provider value={{ store, setStore }}>

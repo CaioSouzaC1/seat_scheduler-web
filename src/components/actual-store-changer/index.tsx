@@ -13,14 +13,13 @@ import { IStore } from "@/interfaces/Store";
 import { useEffect } from "react";
 export default function ActualStoreChanger() {
   const { stores } = useGetStores();
-
   const { store, setStore } = useStore();
 
   useEffect(() => {
-    if (store === null && stores && stores?.data.meta.total > 0) {
+    if (!store && stores && stores.data.meta.total > 0) {
       setStore(stores.data.data[0]);
     }
-  }, [stores]);
+  }, [stores, store, setStore]);
 
   return (
     <Popover>

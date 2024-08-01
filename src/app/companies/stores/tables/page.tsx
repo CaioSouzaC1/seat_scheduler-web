@@ -98,7 +98,6 @@ function TablesPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TablesTableRowSkeleton />
               {tables
                 ? tables.data.meta.total > 0 &&
                   tables.data.data.map((table: ITable) => (
