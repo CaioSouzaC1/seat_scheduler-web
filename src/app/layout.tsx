@@ -11,6 +11,7 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 import { StoreProvider } from "@/context/StoreContext/Index";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
+import { WebSocketProvider } from "@/context/WebSocketContext";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html suppressHydrationWarning={true} lang="pt-BR">
       <body
@@ -36,6 +38,7 @@ export default function RootLayout({
           shallowRouting
         />
         <Toaster duration={2400} position="top-center" />
+        <WebSocketProvider />
         <QueryClientProvider client={queryClient}>
           <SessionProvider refetchInterval={10 * 60}>
             <ThemeProvider attribute="class">
