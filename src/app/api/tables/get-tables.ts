@@ -11,10 +11,7 @@ export async function getTables({
       headers: {
         ...(await AuthInterceptor()),
       },
-      params: {
-        limit,
-        page,
-      },
+      params: { limit, page, },
     });
     return response.data;
   } catch (error) {

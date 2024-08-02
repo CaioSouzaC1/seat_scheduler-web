@@ -1,9 +1,9 @@
 import { IApiRoot } from "@/interfaces/Api";
 import api, { AuthInterceptor } from "@/services/api";
 
-export async function deleteStore(id: string) {
+export async function acceptBook(id: string) {
   try {
-    const response = await api.delete<IApiRoot>(`/stores/${id}`, {
+    const response = await api.patch<IApiRoot>(`/books/${id}/accept`, {}, {
       headers: {
         ...(await AuthInterceptor()),
       },
@@ -11,6 +11,6 @@ export async function deleteStore(id: string) {
 
     return response.data;
   } catch (error) {
-    throw new Error("Erro ao deletar loja");
+    throw new Error("Erro ao aceitar mesa");
   }
 }

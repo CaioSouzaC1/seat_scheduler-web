@@ -25,7 +25,6 @@ export async function updateStore(data: IUpdateStore): Promise<IApiRoot> {
 
     return response.data;
   } catch (error) {
-    console.error(error);
     throw new Error("Erro ao editar loja");
   }
 }

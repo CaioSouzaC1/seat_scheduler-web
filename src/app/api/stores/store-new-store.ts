@@ -23,7 +23,6 @@ export async function storeNewStore(data: ICreateStore): Promise<ICreatedStore> 
 
     return response.data;
   } catch (err) {
-    console.error(err);
     throw new Error("Erro ao criar loja");
   }
 }

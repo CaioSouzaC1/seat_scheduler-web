@@ -1,3 +1,5 @@
+"use client";
+
 import { ITable } from "@/interfaces/Tables";
 import {
   Drawer,
@@ -15,6 +17,7 @@ import { useMutation } from "@tanstack/react-query";
 import { deleteTable } from "@/app/api/tables/delete-table";
 import { toast } from "sonner";
 import { queryClient } from "@/app/lib/react-query";
+
 export default function DeleteTableDrawer(table: ITable) {
   const { mutateAsync: deleteTableFn } = useMutation({
     mutationFn: deleteTable,

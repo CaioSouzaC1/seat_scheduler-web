@@ -7,7 +7,6 @@ export async function storeNewUser(data: ICreateUser): Promise<ICreatedUser> {
     const response = await api.post<ICreatedUser>("/users", data);
     return response.data;
   } catch (error) {
-    console.error(error);
     throw new Error("Erro ao criar usuário");
   }
 }
