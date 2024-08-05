@@ -31,8 +31,11 @@ import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import NewTableDialog from "@/components/tables/new-table-dialog";
+import { useState } from "react";
 
 function TablesPage() {
+  const [tablesToDelete, setTablesToDelete] = useState<string[]>([]);
+
   const searchParams = useSearchParams();
 
   const page = searchParams.get("page") ?? "1";
