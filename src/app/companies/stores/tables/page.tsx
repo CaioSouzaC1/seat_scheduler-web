@@ -94,7 +94,7 @@ function TablesPage() {
             </span>
             <div className="flex gap-4">
               <NewTableDialog />
-              <DeleteTablesInBulkDrawer tables={tablesToDelete} />
+              <DeleteTablesInBulkDrawer form={form} tables={tablesToDelete} />
             </div>
           </CardTitle>
         </CardHeader>
