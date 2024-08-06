@@ -14,8 +14,8 @@ export default function NotificationSheet() {
   return (
     <Sheet>
       <SheetTrigger>
-        <Button className="w-12 h-12 rounded-full absolute right-6 bottom-6 px-2 hover:animate-">
-          <BellRing className="hover:animate-wiggle" />
+        <Button className="w-12 h-12 rounded-full fixed right-6 bottom-6 px-2 hover:animate-wiggle">
+          <BellRing />
         </Button>
       </SheetTrigger>
       <SheetContent>

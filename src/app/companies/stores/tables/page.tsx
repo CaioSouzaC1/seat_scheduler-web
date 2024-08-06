@@ -31,10 +31,20 @@ import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import NewTableDialog from "@/components/tables/new-table-dialog";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { deleteTablesInBulkSchema } from "@/schemas/tables";
+import { Form } from "@/components/ui/form";
+import DeleteTablesInBulkDrawer from "@/components/tables/delete-tables-in-bulk-drawer";
 
 function TablesPage() {
-  const [tablesToDelete, setTablesToDelete] = useState<string[]>([]);
+  const form = useForm<z.infer<typeof deleteTablesInBulkSchema>>({
+    resolver: zodResolver(deleteTablesInBulkSchema),
+    defaultValues: {
+      tables: [],
+    },
+  });
 
   const searchParams = useSearchParams();
 
@@ -42,6 +52,10 @@ function TablesPage() {
   const { store } = useStore();
 
   const { tables } = useGetTables({ storeId: store?.id!, page: Number(page) });
+
+  const tablesToDelete = form.watch("tables");
+
+  async function onSubmit() {}
 
   return (
     <Layout>
@@ -80,37 +94,43 @@ function TablesPage() {
             </span>
             <div className="flex gap-4">
               <NewTableDialog />
-              <Button variant={"destructive"} className="flex gap-2">
-                <span>Deletar em massa</span> <Trash2 size={20} />
-              </Button>
+              <DeleteTablesInBulkDrawer tables={tablesToDelete} />
             </div>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-12">
-                  <Checkbox />
-                </TableHead>
-                <TableHead className="w-16">Nº</TableHead>
-                <TableHead className="w-24">Cadeiras</TableHead>
-                <TableHead className="w-32">Status</TableHead>
-                <TableHead>Observação</TableHead>
-                <TableHead className="w-32">Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {tables
-                ? tables.data.meta.total > 0 &&
-                  tables.data.data.map((table: ITable) => (
-                    <TablesTableRow key={table.id} {...table} />
-                  ))
-                : Array.from({ length: 20 }).map((_, e) => (
-                    <TablesTableRowSkeleton key={e} />
-                  ))}
-            </TableBody>
-          </Table>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-12">
+                      <Checkbox />
+                    </TableHead>
+                    <TableHead className="w-16">Nº</TableHead>
+                    <TableHead className="w-24">Cadeiras</TableHead>
+                    <TableHead className="w-32">Status</TableHead>
+                    <TableHead>Observação</TableHead>
+                    <TableHead className="w-32">Ações</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {tables
+                    ? tables.data.meta.total > 0 &&
+                      tables.data.data.map((table: ITable) => (
+                        <TablesTableRow
+                          form={form}
+                          key={table.id}
+                          table={table}
+                        />
+                      ))
+                    : Array.from({ length: 20 }).map((_, e) => (
+                        <TablesTableRowSkeleton key={e} />
+                      ))}
+                </TableBody>
+              </Table>
+            </form>
+          </Form>
 
           {tables && (
             <Pagination

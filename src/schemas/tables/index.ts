@@ -39,3 +39,7 @@ export const newTablesInBulkSchema = z.object({
     .min(2, "Número mínimo de 2 mesas")
     .max(299, "Número máximo de 299 mesas"),
 });
+
+export const deleteTablesInBulkSchema = z.object({
+  tables: z.array(z.string()),
+});

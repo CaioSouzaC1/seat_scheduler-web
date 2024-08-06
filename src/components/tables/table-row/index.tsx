@@ -14,12 +14,37 @@ import { Separator } from "@/components/ui/separator";
 import DeleteTableDrawer from "../delete-table-drawer";
 import UpdateTableDialog from "../update-table-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
+import { FormControl, FormField, FormItem } from "@/components/ui/form";
+import { UseFormReturn } from "react-hook-form";
 
-export default function TablesTableRow(table: ITable) {
+interface TablesTableRowProps {
+  table: ITable;
+  form: UseFormReturn<{ tables: string[] }>;
+}
+
+export default function TablesTableRow({ table, form }: TablesTableRowProps) {
   return (
     <TableRow>
       <TableCell>
-        <Checkbox />
+        <FormField
+          control={form.control}
+          name="tables"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Checkbox
+                  checked={field.value.includes(table.id)}
+                  onCheckedChange={(e) => {
+                    const newValue = e
+                      ? [...field.value, table.id]
+                      : field.value.filter((id: string) => id !== table.id);
+                    field.onChange(newValue);
+                  }}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
       </TableCell>
       <TableCell className="font-bold">
         <Badge>{table.number}</Badge>
