@@ -38,14 +38,15 @@ export default function RootLayout({
           shallowRouting
         />
         <Toaster duration={2400} position="top-center" />
-        <WebSocketProvider />
-        <QueryClientProvider client={queryClient}>
-          <SessionProvider refetchInterval={10 * 60}>
-            <ThemeProvider attribute="class">
-              <StoreProvider>{children}</StoreProvider>
-            </ThemeProvider>
-          </SessionProvider>
-        </QueryClientProvider>
+        <WebSocketProvider>
+          <QueryClientProvider client={queryClient}>
+            <SessionProvider refetchInterval={10 * 60}>
+              <ThemeProvider attribute="class">
+                <StoreProvider>{children}</StoreProvider>
+              </ThemeProvider>
+            </SessionProvider>
+          </QueryClientProvider>
+        </WebSocketProvider>
       </body>
     </html>
   );

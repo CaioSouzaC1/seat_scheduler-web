@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import { createContext, useEffect } from "react"
+import { createContext, ReactNode, useEffect } from "react"
 import { getSession } from 'next-auth/react'
 
 interface INotification {
@@ -11,11 +11,17 @@ interface INotification {
   data: object
 }
 
-const WebSocketContext = createContext(undefined)
+const socket = io(process.env.API_URL as string)
 
-export const WebSocketProvider = () => {
+const WebSocketContext = createContext(socket)
+
+interface WebSocketContextProps {
+  children: ReactNode
+}
+
+export const WebSocketProvider = ({ children }: WebSocketContextProps) => {
   useEffect(() => {
-    const socket = io(process.env.API_URL as string)
+
 
     const connectionSocket = async () => {
       try {
@@ -41,7 +47,8 @@ export const WebSocketProvider = () => {
   }, [])
 
   return (
-    <WebSocketContext.Provider value={undefined}>
+    <WebSocketContext.Provider value={socket}>
+      {children}
     </WebSocketContext.Provider>
   )
 }
