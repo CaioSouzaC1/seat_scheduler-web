@@ -74,3 +74,10 @@
       @apply bg-background text-foreground;
     }
   }
+  *::-webkit-scrollbar {
+    @apply w-2 h-2 bg-muted/80 rounded-full scroll-mx-0.5;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-foreground/25;
+  }

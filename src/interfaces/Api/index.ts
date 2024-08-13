@@ -23,6 +23,7 @@ export interface IPaginateRoot extends IApiRoot {
 }
 
 export interface ITimestamps {
+  id: string;
   createdAt: string;
   updatedAt: string;
   deletedAt?: string;

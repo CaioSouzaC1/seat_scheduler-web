@@ -1,15 +1,12 @@
 import { IAddress } from "../Adresses";
-import { IApiRoot, IPaginate, IPaginateRoot } from "../Api";
+import { IApiRoot, IPaginate, IPaginateRoot, ITimestamps } from "../Api";
 import { IAttachement } from "../Attachement";
 
-export interface ICompany {
-  id: string;
+export interface ICompany extends ITimestamps {
   name: string;
   cnpj: string;
   addressId: string;
   userId: string;
-  createdAt: string;
-  updatedAt: string;
   address: IAddress;
   attachement: ICompanyAttachement[];
 }

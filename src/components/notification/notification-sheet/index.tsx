@@ -9,8 +9,14 @@ import {
 import { Button } from "../../ui/button";
 import { BellRing } from "lucide-react";
 import NotificationCard from "../notification-card";
+import { useGetNotifications } from "@/hooks/queries/notifications/use-get-notifications";
+import { INotification } from "@/interfaces/Notifications";
 
 export default function NotificationSheet() {
+  const { notifications } = useGetNotifications();
+
+  console.log(notifications);
+
   return (
     <Sheet>
       <SheetTrigger>
@@ -24,10 +30,14 @@ export default function NotificationSheet() {
           <SheetDescription>
             Role para baixo para ver mais antigas.
           </SheetDescription>
-          <div className="flex flex-col gap-2 w-full">
-            <NotificationCard />
-            <NotificationCard />
-            <NotificationCard />
+          <div className="flex flex-col gap-2 w-full overflow-y-auto max-h-[85vh] pr-2 pt-2">
+            {notifications
+              ? notifications.data.data.map((e: INotification) => (
+                  <NotificationCard key={e.id} notification={e} />
+                ))
+              : Array.from({ length: 5 }).map((_, i) => (
+                  <NotificationCard key={i} />
+                ))}
           </div>
         </SheetHeader>
       </SheetContent>
