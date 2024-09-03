@@ -33,4 +33,5 @@ export interface IQueryPaginateRoot {
   page?: number;
   limit?: number;
   search?: string;
+  status?: "available" | "scheduled" | "busy";
 }

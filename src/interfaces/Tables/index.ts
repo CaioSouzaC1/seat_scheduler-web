@@ -5,11 +5,14 @@ import {
   ITimestamps,
 } from "../Api";
 
-export interface ITable extends ITimestamps {
+export interface ITableStatus {
+  status: "available" | "scheduled" | "busy";
+}
+
+export interface ITable extends ITimestamps, ITableStatus {
   id: string;
   number: number;
   observation?: string;
-  status: string;
   storeId: string;
   numberOfChairs: number;
   booking: any[];

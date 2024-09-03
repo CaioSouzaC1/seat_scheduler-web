@@ -5,6 +5,7 @@ import api, { AuthInterceptor } from "@/services/api";
 export async function getBooks({
   limit = 20,
   page = 1,
+  status = "available",
 }: IQueryPaginateRoot) {
   try {
     const response = await api.get<IGetBooks>(`/books`, {
@@ -13,8 +14,9 @@ export async function getBooks({
       },
       params: {
         limit,
-        page
-      }
+        page,
+        status,
+      },
     });
     return response.data;
   } catch (error) {

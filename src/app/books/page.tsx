@@ -12,15 +12,36 @@ import BookTableRow from "@/components/books/table-row";
 import { IBook } from "@/interfaces/Books";
 import Link from "next/link";
 import BooksTableRowSkeleton from "@/components/books/table-row-skeleton";
-
-
+import { IQueryPaginateRoot } from "@/interfaces/Api";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { StatusTranslated } from "@/interfaces/_enum";
+import { useRouter } from "next/navigation";
 
 function BookPage() {
   const searchParams = useSearchParams();
 
-  const page = searchParams.get("page") ?? "1";
+  const router = useRouter();
 
-  const { books } = useGetBooks({ page: Number(page) })
+  const page = searchParams.get("page") ?? "1";
+  const status =
+    (searchParams.get("status") as IQueryPaginateRoot["status"]) ?? "available";
+
+  const { books } = useGetBooks({ page: Number(page), status: status });
+
+  function handleChangeStatus(value: string) {
+    const params = new URLSearchParams(
+      searchParams as unknown as URLSearchParams
+    );
+
+    params.set("status", value);
+    router.push(`?${params.toString()}`);
+  }
 
   return (
     <Layout>
@@ -40,7 +61,7 @@ function BookPage() {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href="/companies/bookss">Lojas</Link>
+              <Link href="/companies/stores">Lojas</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
@@ -53,9 +74,21 @@ function BookPage() {
       <Card className="my-4">
         <CardHeader>
           <CardTitle className="w-full flex items-center justify-between">
-            <span>
-              Reservas
-            </span>
+            <span>Reservas</span>
+            <Select onValueChange={(value) => handleChangeStatus(value)}>
+              <SelectTrigger className="w-40">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="available">
+                  {StatusTranslated.available}
+                </SelectItem>
+                <SelectItem value="scheduled">
+                  {StatusTranslated.scheduled}
+                </SelectItem>
+                <SelectItem value="busy">{StatusTranslated.busy}</SelectItem>
+              </SelectContent>
+            </Select>
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -70,10 +103,10 @@ function BookPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {books && books.data.meta.total > 100 ? (
-                books.data.data.map((book: IBook) =>
+              {books ? (
+                books.data.data.map((book: IBook) => (
                   <BookTableRow key={book.id} {...book} />
-                )
+                ))
               ) : (
                 <BooksTableRowSkeleton />
               )}
@@ -88,8 +121,8 @@ function BookPage() {
           )}
         </CardContent>
       </Card>
-    </Layout >
-  )
+    </Layout>
+  );
 }
 
 export default withAuth(BookPage)

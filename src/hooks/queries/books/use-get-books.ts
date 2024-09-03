@@ -4,12 +4,11 @@ import { IQueryPaginateRoot } from "@/interfaces/Api";
 import { IGetBooks } from "@/interfaces/Books";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetBooks = ({ limit, page }: IQueryPaginateRoot) => {
-  const { data: books, isLoading: isLoadingCompanies } =
-    useQuery<IGetBooks>({
-      queryKey: ["get-books", limit, page],
-      queryFn: () => getBooks({ limit, page }),
-    });
+export const useGetBooks = ({ limit, page, status }: IQueryPaginateRoot) => {
+  const { data: books, isLoading: isLoadingCompanies } = useQuery<IGetBooks>({
+    queryKey: ["get-books", limit, page, status],
+    queryFn: () => getBooks({ limit, page, status }),
+  });
 
   return { books, isLoadingCompanies };
 };

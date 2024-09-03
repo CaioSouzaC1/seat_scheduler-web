@@ -53,10 +53,8 @@ export default function LogoForm({
     setDragging(false);
     const file = e.dataTransfer.files?.[0];
     if (file) {
-      console.log(file instanceof File);
       form.setValue("image", file);
       setImageFile(file);
-      console.log(form.getValues("image"));
     }
   };
 
