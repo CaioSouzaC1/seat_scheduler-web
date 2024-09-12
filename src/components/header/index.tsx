@@ -109,20 +109,10 @@ export default function Header() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {session && (
-              <>
-                <DropdownMenuLabel>
-                  <Link href={"/account/my"}>Minha conta</Link>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link href={"/settings"}>Configurações</Link>
-                </DropdownMenuItem>
-              </>
+              <DropdownMenuLabel>
+                <Link href={"/account/my"}>Minha conta</Link>
+              </DropdownMenuLabel>
             )}
-
-            <DropdownMenuItem>
-              <Link href={"/support"}>Suporte</Link>
-            </DropdownMenuItem>
 
             {session && (
               <>

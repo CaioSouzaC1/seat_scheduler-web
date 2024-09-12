@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Seat Scheduler
 
-## Getting Started
+**Seat Scheduler** é uma aplicação para gerenciar reservas de mesas em restaurantes, permitindo que administradores aceitem ou cancelem reservas de forma simples e eficiente. A interface foi desenvolvida com **Next.js**, **TypeScript** e **ShadCN**, proporcionando uma experiência fluida tanto no tema escuro quanto no tema claro.
 
-First, run the development server:
+## Tecnologias Utilizadas
+- **Next.js** - Framework React para renderização otimizada.
+- **TypeScript** - Tipagem estática para maior segurança no código.
+- **ShadCN** - Componentes estilizados com suporte a temas claro e escuro.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Funcionalidades
+- Cadastro de empresas e lojas.
+- Aceitar e desmarcar reservas em tempo real.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Imagens das Páginas
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Login
+![Login](public/read/login.png)
 
-## Learn More
+### Dashboard
+![Dashboard](public/read/dashboard.png)
+![DashboardLight](public/read/dashboard-light.png)
 
-To learn more about Next.js, take a look at the following resources:
+### Empresas
+![Companies](public/read/companies.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Lojas
+![Stores](public/read/stores.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Mesas
+![Tables](public/read/tables.png)
 
-## Deploy on Vercel
+### Reservas
+![Bookings](public/read/bookings.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Minha conta
+![MyAccount](public/read/my-account.png)

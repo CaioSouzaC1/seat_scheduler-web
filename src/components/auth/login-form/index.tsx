@@ -75,9 +75,9 @@ export default function LoginForm() {
             <FormItem className="mb-4">
               <FormLabel className="flex justify-between">
                 <span>Senha</span>
-                <Link className="underline" href={"/forgot-password"}>
+                {/* <Link className="underline" href={"/forgot-password"}>
                   Perdi minha senha
-                </Link>
+                </Link> */}
               </FormLabel>
               <FormControl>
                 <Input type="password" placeholder="*****" {...field} />
