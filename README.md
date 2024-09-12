@@ -15,23 +15,23 @@
 ## Imagens das Páginas
 
 ### Login
-![Login](public/read/login.png)
+![Login](public/readme/login.png)
 
 ### Dashboard
-![Dashboard](public/read/dashboard.png)
-![DashboardLight](public/read/dashboard-light.png)
+![Dashboard](public/readme/dashboard.png)
+![DashboardLight](public/readme/dashboard-light.png)
 
 ### Empresas
-![Companies](public/read/companies.png)
+![Companies](public/readme/companies.png)
 
 ### Lojas
-![Stores](public/read/stores.png)
+![Stores](public/readme/stores.png)
 
 ### Mesas
-![Tables](public/read/tables.png)
+![Tables](public/readme/tables.png)
 
 ### Reservas
-![Bookings](public/read/bookings.png)
+![Bookings](public/readme/bookings.png)
 
 ### Minha conta
-![MyAccount](public/read/my-account.png)
+![MyAccount](public/readme/my-account.png)
