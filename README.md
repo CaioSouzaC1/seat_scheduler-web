@@ -6,6 +6,7 @@
 - **Next.js** - Framework React para renderização otimizada.
 - **TypeScript** - Tipagem estática para maior segurança no código.
 - **ShadCN** - Componentes estilizados com suporte a temas claro e escuro.
+- **React Query** - Consultas na api com performance e cacheamento.
 
 ## Funcionalidades
 - Cadastro de empresas e lojas.
