@@ -39,6 +39,10 @@ export default function Header() {
           text: "Reservas",
           url: "/books",
         },
+        {
+          text: "Items",
+          url: "/companies/stores/menu-items",
+        },
       ]
     : [
         {

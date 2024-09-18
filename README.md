@@ -31,6 +31,9 @@
 ### Mesas
 ![Tables](public/readme/tables.png)
 
+### Items do menu
+![Tables](public/readme/menu-items.png)
+
 ### Reservas
 ![Bookings](public/readme/bookings.png)
 
